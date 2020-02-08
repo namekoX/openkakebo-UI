@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="家計簿をつけて外部公開をする事ができるサイトです" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <title>OPEN家計簿</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-152682775-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    function gtagPageview(pathname){gtag('config', '%REACT_APP_GOOGLE_AN_CLIENT%', {'page_path': pathname});}
+    gtag('config', 'UA-152682775-2');
+  </script>
+  <script data-ad-client="ca-pub-3210646574890109" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+</body>
+
+</html>
