@@ -8,6 +8,9 @@ import { AppReducer, RootState } from './states/AppReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import ReactGA from 'react-ga';
 import { getGAID } from './common/utils';
+import { ShushiState, ShushiReducer } from './states/ShushiReducer';
+import { InputReducer,InputState } from './states/InputReducer';
+import { SummaryState, SummaryReducer } from './states/SummaryReducer';
 
 export const history = createBrowserHistory();
 ReactGA.initialize(getGAID());
@@ -20,14 +23,20 @@ history.listen(({ pathname }) => {
 export type AppState = {
   User: UserState,
   Root: RootState,
+  Shushi:ShushiState,
+  Input:InputState,
   router: RouterState,
+  summary:SummaryState,
 };
 
 const store = createStore(
   combineReducers<AppState>({
     User: UserReducer,
     Root: AppReducer,
+    Shushi: ShushiReducer,
+    Input: InputReducer,
     router: connectRouter(history),
+    summary: SummaryReducer,
   }),
   composeWithDevTools(applyMiddleware(thunk, routerMiddleware(history), logger))
 );

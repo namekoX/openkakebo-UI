@@ -1,28 +1,46 @@
 
 export default class Const {
-    static GET_TITLE_URL = "rsscustom/gettitle/";
-    static POST_ENTRY_URL = "rsscustom/create_entry/";
-    static PUT_ENTRY_URL = "rsscustom/update_entry/";
-    static GET_ENTRY_URL = "rsscustom/get_entry/";
-    static GET_RSS_URL = "rsscustom/get_rss/";
-    static POST_USER_URL = "rsscustom/create_user/";
-    static PUT_USER_URL = "rsscustom/update_user/";
-    static LOGIN_URL = "rsscustom/login/";
-    static GET_LIST_ENTRY_URL = "rsscustom/get_entry_list/";
-    static DELETE_LIST_ENTRY_URL = "rsscustom/delete_entry/";
+  static KEY_TOKEN = "OPEN_KAKEIBO_TOKEN";
 
-    static KEY_TOKEN = "OPEN_KAKEIBO_TOKEN";
+  static LIST_PAGER_PERPAGE = 30;
 
-    static LIST_PAGER_PERPAGE = 30;
+  static SITE_ROOT = "/app4";
 
-    static SITE_ROOT = "/app4"
+  static TEST_HOST = "http://openkakebotest.com";
+  static PRODUCT_HOST = "https://slavesystem.info";
 
-    static URLS ={
-      LOGIN_URL:"openkakeibo/login",
-    }
-
-    static TITELS = {
-      LOGIN:"Open家計簿 - ログイン",
-    }
-
+  static URLS = {
+    LOGIN_URL: "/api/login",
+    LOGOUT_URL: "/api/logout",
+    PASS_CHANGE_URL: "/api/password",
+    ID_CHANGE_URL: "/api/mail",
+    REGISTER_URL: "/api/createuser",
+    GOOGLE_URL:"/login/google",
+    YAHOO_URL:"/login/yahoo",
+    CATEGORY_URL:"/api/category",
+    GET_USER_ID_URL:"/api/getuser",
+    KOZA_URL:"/api/koza",
+    SHUSHI_URL:"/api/shushi",
+    SUMMARY_URL: "/api/summary",
   }
+
+  static TITELS = {
+    LOGIN: "Open家計簿 - ログイン",
+    INPUT: "Open家計簿 - 入力",
+    KOZA: "Open家計簿 - 口座",
+    CATEGORY: "Open家計簿 - カテゴリー",
+    RIREKI: "Open家計簿 - 履歴",
+    SUMMARY: "Open家計簿 - サマリー",
+  }
+
+  static CATEGORY_KBN = {
+    SHUNYU : '0',
+    SISHUTU : '1',
+  }
+
+  static INPUT_KBN = {
+    SHUNYU : '0',
+    SISHUTU : '1',
+    HURIKAE : '2',
+  }
+}

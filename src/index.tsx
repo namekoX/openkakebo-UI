@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 import Store , {history} from './store';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import './index.css';
+import './App.scss';
+import './index.scss';
 import { ConnectedRouter } from 'connected-react-router';
 import AppContainer from './containers/AppContainer';
 

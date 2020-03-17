@@ -5,20 +5,25 @@ import LoginUser from '../interface/LoginUser';
 import { UserActions } from '../actions/UserActions';
 
 export interface RootState {
-  loginUser?: LoginUser,
-  isLogin?: boolean,
-  menuTabActive?:string,
+  loginUser?: LoginUser;
+  isLogin?: boolean;
+  menuTabActive?: string;
+  isSocialLogin?: boolean;
+  statusCd?: number;
 }
 
 const initialState: RootState = {
-  loginUser:{
-    id: "",
+  loginUser: {
+    id: 0,
     name: "",
     email: "",
     token: "",
+    isSocial: false,
   },
   isLogin: isLogin(),
   menuTabActive: "/menu/new",
+  isSocialLogin: false,
+  statusCd: 200,
 };
 
 export const AppReducer = reducerWithInitialState(initialState)
@@ -27,12 +32,24 @@ export const AppReducer = reducerWithInitialState(initialState)
   })
   .case(UserActions.onLogin, (state, payload) => {
     return Object.assign({}, state, {
-      loginUser:payload.user,
-      isLogin:isLogin(),
+      loginUser: payload.user,
+      isLogin: isLogin(),
     });
   })
-  .case(AppActions.onClear, (state, {}) => {
-    return Object.assign({}, state, { 
+  .case(UserActions.onRegister, (state, payload) => {
+    return Object.assign({}, state, {
+      loginUser: payload.user,
+      isLogin: isLogin(),
+    });
+  })
+  .case(AppActions.getUserId, (state, payload) => {
+    return Object.assign({}, state, {
+      loginUser: payload,
+      isLogin: isLogin(),
+    });
+  })
+  .case(AppActions.onClear, (state, { }) => {
+    return Object.assign({}, state, {
       isLogin: isLogin(),
       menuTabActive: "/menu/new",
     });

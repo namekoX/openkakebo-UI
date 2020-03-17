@@ -5,6 +5,10 @@ import { UserState } from '../states/UserReducer';
 import PostUserRequest from '../interface/PostUserRequest';
 import { Br } from '../common/Br';
 import Const from '../common/const';
+import btn_google from '../image/btn_google_signin_dark_pressed_web@2x.png';
+import btn_yahoo from '../image/btn_yahoo.png';
+import { SpinnerModal } from '../common/SpinnerModal';
+import Cookies from 'js-cookie';
 
 interface OwnProps {
   location: Location;
@@ -17,119 +21,243 @@ type UserProps = OwnProps & UserState & Actions;
 
 export const Login: React.FC<UserProps> = (props: UserProps) => {
   React.useEffect(() => {
-    if (props.location != undefined) {
+    if (props.location !== undefined) {
       document.title = Const.TITELS.LOGIN;
+      if (props.location.pathname === Const.SITE_ROOT + '/changepassword' || props.location.pathname === Const.SITE_ROOT + '/changeid') {
+        props.updateState(true, "isChange");
+        props.updateState('更新', "btnName");
+        if (props.location.pathname === Const.SITE_ROOT + '/changepassword') {
+          props.updateState('パスワード', "changeMode");
+        } else {
+          props.updateState('ID', "changeMode");
+        }
+      } else {
+        props.updateState(false, "isChange");
+      }
     }
   }, [])
   return (
-    <div className="padding10" >
-      {!(props.isNew || props.isChange) &&
-        <div className="h1disc middle" >家計簿をつけて外部公開をする事ができるサイトです</div>
-      }
-      <Row>
-        <Col>
-          <Card className="cardTitle">
-            <Card.Body>
-              <Card.Title>{props.isNew ? "新規ユーザー登録" : props.isChange ? "パスワード変更" : "パスワードでログイン"}</Card.Title>
-              {!(props.isNew || props.isChange) &&
-                <Card.Text>
-                  メールアドレスでログインをします。
-                  アカウントが未作成の方は新規登録をしてください。
-            </Card.Text>
-              }
-            </Card.Body>
-            <ListGroup className="list-group-flush">
+    <div className={"LoginCard"}>
+      <SpinnerModal
+        show={props.loading}
+      />
+      <Card>
+        <Card.Body className="LoginCardBody">
+          <Card.Text>
+            {props.isNew ? "新規ユーザー登録" :
+              props.isChange ? props.changeMode === 'パスワード' ? "パスワード変更" : "メールアドレス変更"
+                : "ログイン"}
+          </Card.Text>
+        </Card.Body>
+        <Row>
+          <Col sm={props.isNew || props.isChange ? 12 : 6}>
+            <Card className="cardTitle">
               {!props.isChange &&
+                <Card.Body>
+                  <Card.Title>{props.isNew ? "新規ユーザー登録" : "パスワードでログイン"}</Card.Title>
+                  {!props.isNew &&
+                    <Card.Text>
+                      メールアドレスでログインをします。
+                  </Card.Text>
+                  }
+                </Card.Body>
+              }
+              <ListGroup className="list-group-flush">
                 <ListGroupItem>
                   <FormControl
-                    type="text"
-                    placeholder="メールアドレス"
+                    type={props.isChange && props.changeMode === 'パスワード' ? "password" : "text"}
+                    placeholder={props.isChange ? props.changeMode === 'パスワード' ? "現パスワード" : "現メールアドレス" : "メールアドレス"}
                     value={props.email}
                     maxLength={255}
                     onChange={(e: any) => props.updateState(e.target.value, "email")}
+                    onKeyPress={(e: any) => {
+                      if (e.key == 'Enter') {
+                        const body: PostUserRequest = {
+                          email: props.email,
+                          password: props.password,
+                        };
+                        if (props.btnName == "ログイン") {
+                          props.onLogin(body);
+                        } else if (props.btnName == "更新") {
+                          props.onUpdate(Cookies.get(Const.KEY_TOKEN) || '', props.chkpassword, props.password, props.email,props.changeMode);
+                        } else if (props.btnName == "戻る") {
+                          props.toTop();
+                        } else {
+                          props.onRegister(props.chkpassword, body);
+                        }
+                      }
+                    }
+                    }
                   />
                 </ListGroupItem>
-              }
-              <ListGroupItem>
-                <FormControl
-                  type="password"
-                  placeholder={props.isChange ? "新パスワード" : "パスワード"}
-                  value={props.password}
-                  maxLength={50}
-                  onChange={(e: any) => props.updateState(e.target.value, "password")}
-                />
-              </ListGroupItem>
-              {(props.isNew || props.isChange) &&
                 <ListGroupItem>
                   <FormControl
-                    type="password"
-                    placeholder={props.isChange ? "新パスワード(確認)" : "パスワード(確認)"}
-                    value={props.chkpassword}
+                    type={props.isChange && props.changeMode === 'ID' ? "text" : "password"}
+                    placeholder={props.isChange ? props.changeMode === 'パスワード' ? "新パスワード" : "新メールアドレス" : "パスワード"}
+                    value={props.password}
                     maxLength={50}
-                    onChange={(e: any) => props.updateState(e.target.value, "chkpassword")}
+                    onChange={(e: any) => props.updateState(e.target.value, "password")}
+                    onKeyPress={(e: any) => {
+                      if (e.key == 'Enter') {
+                        const body: PostUserRequest = {
+                          email: props.email,
+                          password: props.password,
+                        };
+                        if (props.btnName == "ログイン") {
+                          props.onLogin(body);
+                        } else if (props.btnName == "更新") {
+                          props.onUpdate(Cookies.get(Const.KEY_TOKEN) || '', props.chkpassword, props.password, props.email,props.changeMode);
+                        } else if (props.btnName == "戻る") {
+                          props.toTop();
+                        } else {
+                          props.onRegister(props.chkpassword, body);
+                        }
+                      }
+                    }
+                    }
                   />
                 </ListGroupItem>
+                {(props.isNew || props.isChange) &&
+                  <ListGroupItem>
+                    <FormControl
+                      type={props.isChange && props.changeMode === 'ID' ? "text" : "password"}
+                      placeholder={props.isChange ? props.changeMode === 'パスワード' ? "新パスワード(確認)" : "新メールアドレス(確認)" : "パスワード(確認)"}
+                      value={props.chkpassword}
+                      maxLength={50}
+                      onChange={(e: any) => props.updateState(e.target.value, "chkpassword")}
+                      onKeyPress={(e: any) => {
+                        if (e.key == 'Enter') {
+                          const body: PostUserRequest = {
+                            email: props.email,
+                            password: props.password,
+                          };
+                          if (props.btnName == "ログイン") {
+                            props.onLogin(body);
+                          } else if (props.btnName == "更新") {
+                            props.onUpdate(Cookies.get(Const.KEY_TOKEN) || '', props.chkpassword, props.password, props.email, props.changeMode);
+                          } else if (props.btnName == "戻る") {
+                            props.toTop();
+                          } else {
+                            props.onRegister(props.chkpassword, body);
+                          }
+                        }
+                      }
+                      }
+                    />
+                  </ListGroupItem>
+                }
+              </ListGroup>
+              {(props.valid || props.info) &&
+                <div>
+                  <Row className="width90">
+                    <Col sm={1}></Col>
+                    <Col sm={11}>
+                      <Alert
+                        variant={props.valid ? "danger" : "success"}
+                      >
+                        {props.msg}
+                      </Alert>
+                    </Col>
+                  </Row>
+                </div>
               }
-            </ListGroup>
-            {(props.valid || props.info) &&
-              <div>
-                <Row className="width90">
-                  <Col sm={1}></Col>
-                  <Col sm={11}>
-                    <Alert
-                      variant={props.valid ? "danger" : "success"}
-                    >
-                      {props.msg}
-                    </Alert>
-                  </Col>
-                </Row>
-              </div>
-            }
-            <Card.Body>
-              <Button
-                variant="primary"
-                type="submit"
-                onClick={
-                  (e: any) => {
-                    const body: PostUserRequest = {
-                      email: props.email,
-                      password: props.password,
-                    };
-                    if (props.btnName == "ログイン") {
-                      props.onLogin(body);
-                    } else if (props.btnName == "更新") {
-                      props.onUpdate(props.chkpassword, body);
-                    } else if (props.btnName == "戻る") {
-                      props.toTop();
-                    } else {
-                      props.onRegister(props.chkpassword, body);
+              <Card.Body>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  onClick={
+                    (e: any) => {
+                      const body: PostUserRequest = {
+                        email: props.email,
+                        password: props.password,
+                      };
+                      if (props.btnName == "ログイン") {
+                        props.onLogin(body);
+                      } else if (props.btnName == "更新") {
+                        props.onUpdate(Cookies.get(Const.KEY_TOKEN) || '', props.chkpassword, props.password, props.email, props.changeMode);
+                      } else if (props.btnName == "戻る") {
+                        props.toTop();
+                      } else {
+                        props.onRegister(props.chkpassword, body);
+                      }
                     }
                   }
-                }
-              >
-                {props.btnName}
+                >
+                  {props.btnName}
+                </Button>
+                {!(props.isNew || props.isChange) &&
+                  <div>
+                    <Br count={2} />
+                    アカウントをお持ちでない方はこちらから
+                    <Br count={1} />
+                    <Button
+                      variant="secondary"
+                      type="submit"
+                      className="widthrem36"
+                      onClick={
+                        (e: any) => {
+                          props.toNew();
+                        }
+                      }
+                    >
+                      新規ユーザー登録
               </Button>
-            </Card.Body>
-          </Card>
-          {!(props.isNew || props.isChange) &&
-            <div>
-              <Br count={1} />
-              <Button
-                variant="secondary"
-                type="submit"
-                className="widthrem36"
-                onClick={
-                  (e: any) => {
-                    props.toNew();
-                  }
+                  </div>
                 }
-              >
-                新規ユーザー登録
-          </Button>
-            </div>
+                {props.isNew && props.btnName !== "戻る" &&
+                  <div>
+                    <Br count={1} />
+                    <Button
+                      variant="secondary"
+                      type="submit"
+                      className="widthrem36"
+                      onClick={
+                        (e: any) => {
+                          props.toTop();
+                        }
+                      }
+                    >
+                      戻る
+                    </Button>
+                  </div>
+                }
+              </Card.Body>
+            </Card>
+          </Col>
+          {!props.isNew && !props.isChange && <Col sm={6}>
+            <Card className="cardTitle">
+              <Card.Body>
+                <Card.Title>SNSでログイン</Card.Title>
+                <Card.Text>
+                  SNSアカウントを使用してログインします。
+                </Card.Text>
+                <img
+                  src={btn_google}
+                  alt="googleでログイン"
+                  style={{ maxWidth: '250px', cursor: 'pointer' }}
+                  onClick={
+                    (e: any) => {
+                      props.toGoogle();
+                    }
+                  }
+                />
+                <Br count={1} />
+                <img
+                  src={btn_yahoo}
+                  alt="yahooでログイン"
+                  style={{ maxWidth: '250px', cursor: 'pointer' }}
+                  onClick={
+                    (e: any) => {
+                      props.toYahoo();
+                    }
+                  }
+                />
+              </Card.Body>
+            </Card>
+          </Col>
           }
-        </Col>
-      </Row>
+        </Row>
+      </Card>
     </div >
   );
 };

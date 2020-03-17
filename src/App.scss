@@ -1,0 +1,94 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+.h1disc {
+  font-size:24px;
+  font-size: 2.0rem;
+  font-weight :700;
+  color:#14c3dc;
+}
+
+.middle{
+  text-align:center;
+}
+
+.cardTitle{
+  min-height:450px;
+}
+
+.list-group-item {
+  border:none;
+  max-width: 400px;
+}
+
+.LoginCardBody{
+  color:#fefefe;
+  font-size:2em;
+  font-weight:bold;
+  padding:24px 32px;
+  background-color: #238ac5;
+}
+
+.LoginCard{
+  max-width: 900px;
+  margin:  0 auto; 
+}
+
+.btn{
+  min-width: 200px;
+}
+
+.inline{
+  display:inline;
+}
+
+.right{
+  float: right;
+}
+
+.table-bordered th{
+  background-color: #238ac5;
+  color:#fff;
+}
+
+.input-group{
+  max-width: 400px;
+}
+
+.input-group-text{
+  background-color: #238ac5;
+  color:#fff;
+  min-width: 100px;
+}
+
+.width100 {
+  width:100% !important;
+}
+
+.width90 {
+  width:90%;
+}
+
+h1 img {
+	padding-bottom: 10px;
+}

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Br } from '../common/Br';
+import Const from '../common/const';
 
 interface OwnProps {
   location?: Location;
@@ -18,7 +19,7 @@ export class NotFound extends React.Component {
       <div className="padding10">
         不正なURLです
         <Br count={1} />
-        <Link to="/menu">トップへ戻る</Link>
+        <Link to= {Const.SITE_ROOT + "/changeid"}>トップへ戻る</Link>
       </div >
     );
   }

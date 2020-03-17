@@ -9,8 +9,9 @@ export interface UserState {
   chkpassword: string,
   isNew: boolean,
   isChange: boolean,
+  changeMode: string,
   valid: boolean,
-  loadingRegister: boolean,
+  loading: boolean;
   msg: string,
   info: boolean,
   btnName: string,
@@ -23,10 +24,11 @@ const initialState: UserState = {
   isNew: false,
   isChange: false,
   valid: false,
-  loadingRegister: false,
+  loading: false,
   msg: '',
   info: false,
   btnName: 'ログイン',
+  changeMode: 'パスワード',
 };
 
 export const UserReducer = reducerWithInitialState(initialState)
@@ -39,22 +41,33 @@ export const UserReducer = reducerWithInitialState(initialState)
       msg: payload.msg,
       valid: payload.valid,
       info: payload.info,
-      loadingRegister: false,
+      loading: false,
       email: (payload.valid ? state.email : ""),
       password: "",
       chkpassword: "",
     });
   })
+  .case(UserActions.onLogout, (state, payload) => {
+    Cookies.remove(Const.KEY_TOKEN);
+    return Object.assign({}, state, {
+      msg: "",
+      valid: payload.valid,
+      info: payload.info,
+      email: "",
+      password: "",
+      chkpassword: "",
+    });
+  })
   .case(UserActions.onRegister, (state, payload) => {
-    if (!payload.valid) {
-      Cookies.set(Const.KEY_TOKEN, state.email);
+    if (!payload.valid && payload.user) {
+      Cookies.set(Const.KEY_TOKEN, payload.user.token);
     }
 
     return Object.assign({}, state, {
       msg: payload.msg,
       valid: payload.valid,
       info: payload.info,
-      loadingRegister: false,
+      loading: false,
       btnName: (payload.valid ? "新規登録" : "戻る"),
       user_id: (payload.valid ? state.email : ""),
       password: "",
@@ -66,7 +79,7 @@ export const UserReducer = reducerWithInitialState(initialState)
       msg: payload.msg,
       valid: payload.valid,
       info: payload.info,
-      loadingRegister: false,
+      loading: false,
       btnName: (payload.valid ? "更新" : "戻る"),
       password: "",
       chkpassword: "",
