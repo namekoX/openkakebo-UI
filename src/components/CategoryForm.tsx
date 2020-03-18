@@ -110,7 +110,7 @@ export const CategoryForm: React.FC<CategoryProps> = (props: CategoryProps) => {
   }, [props.location.pathname])
 
   return (
-    <div>
+    <div className={"FormRoot"} >
       {false && props.updater}
       <SpinnerModal
         show={props.loading}

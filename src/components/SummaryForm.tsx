@@ -83,12 +83,12 @@ export const SummaryForm: React.FC<SummaryProps> = (props: SummaryProps) => {
     }
   }, [props.month])
   return (
-    <div>
+    <div className={"FormRoot"} >
       <SpinnerModal
         show={props.loading}
       />
       <Row >
-        <Col sm={3}>
+        <Col sm={12}>
           <h3>
             <img
               src={btn_hidari}

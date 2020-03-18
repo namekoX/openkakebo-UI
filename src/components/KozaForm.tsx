@@ -86,7 +86,7 @@ export const KozaForm: React.FC<KozaProps> = (props: KozaProps) => {
   }, [props.location.pathname])
 
   return (
-    <div>
+    <div className={"FormRoot"} >
       {false && props.updater}
       <SpinnerModal
         show={props.loading}

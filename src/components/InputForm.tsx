@@ -72,7 +72,7 @@ export const InputForm: React.FC<InputProps> = (props: InputProps) => {
     }
   }, [props.location.pathname])
   return (
-    <div>
+    <div className={"FormRoot"} >
       <SpinnerModal
         show={props.loading}
       />

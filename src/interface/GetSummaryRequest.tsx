@@ -1,4 +1,5 @@
 interface GetSummaryRequest {
-  month: number,
+  month: number | null,
+  id:string | null,
 }
 export default GetSummaryRequest;

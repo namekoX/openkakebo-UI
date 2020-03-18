@@ -14,6 +14,7 @@ import LogoutContainer from './containers/LogoutContainer';
 import NaviContainer from './containers/NaviContainer';
 import { isNotSocial } from './common/utils';
 import SummaryContainer from './containers/SummaryContainer';
+import PublicContainer from './containers/PublicContainer';
 
 interface OwnProps {
   location?: Location;
@@ -61,6 +62,7 @@ export const App: React.FC<AppProps> = (props: AppProps) => {
             <Route exact path={Const.SITE_ROOT + '/rireki'} component={RirekiContainer} />
             <Route exact path={Const.SITE_ROOT + '/logout'} component={LogoutContainer} />
             <Route exact path={Const.SITE_ROOT + '/summary'} component={SummaryContainer} />
+            <Route exact path={Const.SITE_ROOT + '/public/:id'} component={PublicContainer} />
             <Route component={NotFound} />
           </Switch>
         </div>

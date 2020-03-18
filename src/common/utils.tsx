@@ -87,3 +87,23 @@ export function formatDateYYYYMM(date: Date) {
 export function isNotSocial(){
     return store.getState().Root.loginUser !== undefined &&　store.getState().Root.loginUser!.email !== "" && !store.getState().Root.loginUser!.isSocial;
 }
+
+export function getUrlPrams(){
+  let urlParamStr = window.location.search
+  let params = {}
+
+  if (urlParamStr) {
+    urlParamStr = urlParamStr.substring(1)
+    
+
+    urlParamStr.split('&').forEach( param => {
+      const temp = param.split('=')
+      params = {
+        ...params,
+        [temp[0]]: temp[1]
+      }
+    })
+  }
+
+  return params;
+}

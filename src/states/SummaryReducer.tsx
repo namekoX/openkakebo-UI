@@ -11,6 +11,14 @@ export interface SummaryState {
   statsuCd: number,
   month: string,
   summary: Summary,
+  isOpen: boolean,
+  id: string,
+  isMonthChange: boolean,
+  istogetu: boolean;
+  isShishutu: boolean;
+  isShunyu: boolean;
+  isShishutuCategory: boolean;
+  isShunyuCategory: boolean;
 }
 
 const initialState: SummaryState = {
@@ -25,9 +33,28 @@ const initialState: SummaryState = {
     user_id: 0,
     shunyu: 0,
     shishutu: 0,
-    koza:[],
+    koza: [],
+    togetu: false,
+    is_shishutu: true,
+    is_shunyu: true,
+    is_shishutu_category: true,
+    is_shunyu_category: true,
   },
+  isOpen: true,
+  id: "",
+  isMonthChange: false,
+  istogetu: false,
+  isShishutu: true,
+  isShunyu: true,
+  isShishutuCategory: true,
+  isShunyuCategory: true,
 };
+
+function addMonth(month: string, add: number) {
+  let dt = new Date(Number(month.slice(0, 4)), Number(month.slice(-2)), 1, 0, 0, 0);
+  dt.setMonth(dt.getMonth() + add - 1);
+  return formatDateYYYYMM(dt);
+}
 
 export const SummaryReducer = reducerWithInitialState(initialState)
   .case(SummaryActions.updateState, (state, { name, value }) => {
@@ -39,6 +66,12 @@ export const SummaryReducer = reducerWithInitialState(initialState)
       valid: payload.valid,
       msg: payload.validMsg,
       statsuCd: payload.statusCd,
+      month: payload.results.togetu ? addMonth(state.month, -1) : state.month,
+      istogetu: payload.results.togetu,
+      isShishutu: payload.results.is_shishutu,
+      isShunyu: payload.results.is_shunyu,
+      isShishutuCategory: payload.results.is_shishutu_category,
+      isShunyuCategory: payload.results.is_shunyu_category,
     });
   })
   ;

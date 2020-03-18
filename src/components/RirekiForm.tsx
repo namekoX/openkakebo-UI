@@ -82,7 +82,7 @@ export const RirekiForm: React.FC<RirekiProps> = (props: RirekiProps) => {
   }, [props.location.pathname])
 
   return (
-    <div>
+    <div className={"FormRoot"} >
       {false && props.updater}
       <SpinnerModal
         show={props.loading}

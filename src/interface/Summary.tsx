@@ -1,7 +1,7 @@
 import Koza from "./Koza";
 
 interface Summary {
-  id: number|null;
+  id: number | null;
   user_id: number;
   shunyu: number;
   shishutu: number;
@@ -12,6 +12,11 @@ interface Summary {
     }
   },
   koza: Koza[];
+  togetu: boolean;
+  is_shishutu: boolean;
+  is_shunyu: boolean;
+  is_shishutu_category: boolean;
+  is_shunyu_category: boolean;
 }
 
 export default Summary;

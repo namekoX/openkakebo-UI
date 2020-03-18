@@ -11,16 +11,16 @@ import GetSummaryResult from '../interface/GetSummaryResult';
 const actionCreator = actionCreatorFactory();
 const onGetSammary = actionCreator<GetSummaryResult>('ACTION_SUMMARY_GET');
 
-export const getSammary = (month: number) => {
+export const getSammary = (url: string, month: number | null, id?: string) => {
   const prams: GetSummaryRequest = {
-    month: month,
+    month: month === 0 ? null : month,
+    id: id === undefined ? null : id,
   }
   return async (dispatch: Dispatch<Action>, getState: () => AppState) => {
-    console.log(createURL(Const.URLS.SUMMARY_URL, prams));
     try {
       const response = await axios({
         method: 'GET',
-        url: createURL(Const.URLS.SUMMARY_URL, prams),
+        url: createURL(url, prams),
         headers: {
           'Authorization': getTokenPram(Cookies.get(Const.KEY_TOKEN) || ""),
         },
@@ -33,12 +33,17 @@ export const getSammary = (month: number) => {
       };
       dispatch(onGetSammary(result));
     } catch (error) {
-      const ret ={
+      const ret = {
         id: null,
         user_id: 0,
         shunyu: 0,
         shishutu: 0,
-        koza:[],
+        koza: [],
+        togetu: false,
+        is_shishutu: true,
+        is_shunyu: true,
+        is_shishutu_category: true,
+        is_shunyu_category: true,
       }
       const result: GetSummaryResult = {
         results: ret,

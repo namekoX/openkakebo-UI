@@ -22,9 +22,11 @@ export default class Const {
     KOZA_URL:"/api/koza",
     SHUSHI_URL:"/api/shushi",
     SUMMARY_URL: "/api/summary",
+    PUBLIC_URL: "/api/public",
   }
 
   static TITELS = {
+    NORMAL:  "Open家計簿",
     LOGIN: "Open家計簿 - ログイン",
     INPUT: "Open家計簿 - 入力",
     KOZA: "Open家計簿 - 口座",
