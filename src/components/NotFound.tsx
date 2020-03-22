@@ -19,7 +19,7 @@ export class NotFound extends React.Component {
       <div className="padding10">
         不正なURLです
         <Br count={1} />
-        <Link to= {Const.SITE_ROOT + "/changeid"}>トップへ戻る</Link>
+        <Link to= {Const.SITE_ROOT + "/menu/summary"}>トップへ戻る</Link>
       </div >
     );
   }

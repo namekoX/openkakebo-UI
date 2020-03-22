@@ -23,7 +23,7 @@ interface Location {
 type RirekiProps = OwnProps & ShushiState & Actions;
 
 function renderTable(Rirekis: Rireki[],
-  //deleter: (index: number) => void,
+  deleter: (rireki: Rireki, index: number) => void,
   //updater: (index: number) => void,
 ) {
   const rows = Rirekis.map((Rireki, index) =>
@@ -31,28 +31,17 @@ function renderTable(Rirekis: Rireki[],
       <tr key={index}>
         <td>
           {Rireki.category == null ? '未分類' : Rireki.category.category_name}
-          <Dropdown className="inline right">
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic" style={{ minWidth: '100px' }}>
-              編集/削除
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              <Dropdown.Item
-                onClick={(e: any) => {
-                  //updater(index);
-                }}
-              >
-                編集
-              </Dropdown.Item>
-              <Dropdown.Item
-                onClick={(e: any) => {
-                  //deleter(index);
-                }}
-              >
-                削除
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+        </td>
+        <td>
+          <Button
+            variant="primary"
+            style={{ width: "80px", minWidth: "50px" }}
+            onClick={(e: any) => {
+              deleter(Rirekis[index], index);
+            }}
+          >
+            削除
+            </Button>
         </td>
         <td>
           {Rireki.hiduke}
@@ -64,7 +53,13 @@ function renderTable(Rirekis: Rireki[],
           {formatToPrice(Rireki.kingaku)}
         </td>
         <td>
-          {Rireki.koza == null ? '口座未指定' : Rireki.koza.koza_name}
+          {
+            Rireki.shushi_kbn === Const.INPUT_KBN.HURIKAE && Rireki.koza !== null && Rireki.before_koza !== null ?
+              "入金先：" + Rireki.koza.koza_name + " 出金先:" + Rireki.before_koza.koza_name
+              :
+              Rireki.koza == null ? '口座未指定' : Rireki.koza.koza_name
+          }
+
         </td>
       </tr>
     </React.Fragment>
@@ -93,7 +88,7 @@ export const RirekiForm: React.FC<RirekiProps> = (props: RirekiProps) => {
         </Col>
         <Col sm={12}>
           <Form inline>
-            月を指定して再検索　
+            月を指定して再検索
             <FormControl
               type="month"
               placeholder="月"
@@ -145,7 +140,7 @@ export const RirekiForm: React.FC<RirekiProps> = (props: RirekiProps) => {
           <Table bordered hover responsive size="sm" className="Fixed" style={{ maxWidth: '600px', border: "0px" }}>
             <thead>
               <tr>
-                <th>カテゴリ</th>
+                <th colSpan={2}>カテゴリ</th>
                 <th>日付</th>
                 <th>区分</th>
                 <th>金額</th>
@@ -156,7 +151,7 @@ export const RirekiForm: React.FC<RirekiProps> = (props: RirekiProps) => {
               {
                 props.rireki.length !== 0 ? renderTable(
                   props.rireki,
-                  //props.onRirekiDelete,
+                  props.onRirekiDelete,
                   //props.onInsert,
                 )
                   : ""

@@ -11,6 +11,7 @@ import { getGAID } from './common/utils';
 import { ShushiState, ShushiReducer } from './states/ShushiReducer';
 import { InputReducer,InputState } from './states/InputReducer';
 import { SummaryState, SummaryReducer } from './states/SummaryReducer';
+import { PublicConfState, PublicConfReducer } from './states/PublicConfReducer';
 
 export const history = createBrowserHistory();
 ReactGA.initialize(getGAID());
@@ -27,6 +28,7 @@ export type AppState = {
   Input:InputState,
   router: RouterState,
   summary:SummaryState,
+  publicConf:PublicConfState,
 };
 
 const store = createStore(
@@ -37,6 +39,7 @@ const store = createStore(
     Input: InputReducer,
     router: connectRouter(history),
     summary: SummaryReducer,
+    publicConf:PublicConfReducer,
   }),
   composeWithDevTools(applyMiddleware(thunk, routerMiddleware(history), logger))
 );

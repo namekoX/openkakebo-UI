@@ -21,7 +21,7 @@ const initialState: RootState = {
     isSocial: false,
   },
   isLogin: isLogin(),
-  menuTabActive: "/menu/new",
+  menuTabActive: "/menu/summary",
   isSocialLogin: false,
   statusCd: 200,
 };
@@ -51,7 +51,7 @@ export const AppReducer = reducerWithInitialState(initialState)
   .case(AppActions.onClear, (state, { }) => {
     return Object.assign({}, state, {
       isLogin: isLogin(),
-      menuTabActive: "/menu/new",
+      menuTabActive: "/menu/summary",
     });
   })
   ;

@@ -56,6 +56,7 @@
 
 .btn{
   min-width: 200px;
+  margin:5px;
 }
 
 .inline{
@@ -98,8 +99,19 @@ body{
 }
 
 .HeadNavi{
-  background-color:#FFF !important;
+  color: #FFF !important;
+  background-color:#272727 !important;
   height:60px;
+}
+
+.nav-link{
+  color:#FFF !important;
+  text-decoration:none !important;
+}
+
+h1{
+  color:#FFF !important;
+  text-decoration:none !important;
 }
 
 .FormRoot{
@@ -107,4 +119,129 @@ body{
   padding:20px;
   border-style: solid double;
   max-width: 900px;
+  width: 100%;
+}
+
+.msg{
+  padding:0 20px;
+}
+
+.MenuItem {
+  color : #6c757d !important;
+  &.nav-link.active {
+    background-color:#fdead5 !important;
+    color:#ff7200 !important;
+  }
+}
+
+.menuCard{
+  .card-header{
+    font-weight: bold;
+    background-color: #238ac5;
+    color:#fff;
+  }
+}
+
+.checkBoxLabel{
+  background-color: #fff !important;
+  color:#000;
+  width:280px !important;
+}
+
+.checkBox{
+  .input-group-text{
+    background-color: #e9ecef;
+    color:#000;
+    min-width: 30px;
+  }
+}
+
+.howto{
+  h2{
+    font-weight: bold;
+    background-color: #238ac5;
+    color:#fff;
+    padding:10px;
+  }
+  h3{
+    border-bottom:1px solid #ccc;
+  }
+  div{
+    background-color:#fff;
+  }
+  img{
+    max-width: 600px;
+    border: 1px #000 solid;
+  }
+  aside{
+    background-color: #FFFFF0;
+    padding:10px;
+    margin: 10px;
+  }
+  a{
+    font-size: 35px;
+  }
+}
+
+.land{
+  background-color:#fff;
+  margin:0 auto;
+  max-width: 1200px;
+  text-align:center;
+  h2{
+    font-weight: bold;
+    background-color: #238ac5;
+    color:#fff;
+    padding:10px;
+  }
+  h3{
+    border-bottom:1px solid #ccc;
+  }
+  div{
+    background-color:#fff;
+  }
+  img{
+    width:100%;
+  }
+  aside{
+    background-color: #FFFFF0;
+    padding:10px;
+    margin: 10px;
+  }
+  a{
+    font-size: 35px;
+  }
+  p{
+    color:#A2A2A2;
+  }
+}
+
+.big{
+  color:red !important;
+  font-weight: bold;
+  font-size: 2.5em; 
+}
+
+.btn-circle-3d {
+  display: inline-block;
+  text-decoration: none;
+  background: #ff8181;
+  color: #FFF;
+  width: 180px;
+  height: 180px;
+  line-height: 180px;
+  border-radius: 50%;
+  text-align: center;
+  font-weight: bold;
+  overflow: hidden;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
+  border-bottom: solid 3px #bd6565;
+  transition: .4s;
+}
+
+.btn-circle-3d:active {
+  -webkit-transform: translateY(2px);
+  transform: translateY(2px);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+  border-bottom: none;
 }

@@ -8,8 +8,6 @@ import { Login } from '../components/Login';
 import { push } from 'connected-react-router';
 import { isLogin } from '../common/global';
 import { getHost, getUserId } from '../common/utils';
-import Cookies from 'js-cookie';
-import { getUser } from '../actions/AppActions';
 
 export interface Actions {
   updateState: (value: any, name: string) => Action<{ name: string, value: any }>,
@@ -31,7 +29,7 @@ function mapDispatchToProps(dispatch: any) {
       dispatch(UserActions.updateState({ name: "info", value: false }));
       await dispatch(postUser(Const.URLS.REGISTER_URL, chkpassword, body));
       if (isLogin()) {
-        dispatch(push(Const.SITE_ROOT + "/menu"));
+        dispatch(push(Const.SITE_ROOT + "/menu/summary"));
       };
     },
     onUpdate: async (token: string, chk: string, after: string, before: string, changeMode: string) => {
@@ -50,7 +48,7 @@ function mapDispatchToProps(dispatch: any) {
       dispatch(UserActions.updateState({ name: "info", value: false }));
       await dispatch(chkUser(Const.URLS.LOGIN_URL, body));
       if (isLogin()) {
-        dispatch(push(Const.SITE_ROOT + "/menu"));
+        dispatch(push(Const.SITE_ROOT + "/menu/summary"));
       };
     },
     toNew: () => {
@@ -61,12 +59,14 @@ function mapDispatchToProps(dispatch: any) {
     },
     toTop: () => {
       dispatch(UserActions.onClear({}));
-      dispatch(push(Const.SITE_ROOT + "/"));
+      dispatch(push(Const.SITE_ROOT + "/menu/summary"));
     },
     toGoogle: () => {
+      dispatch(UserActions.updateState({ name: "loading", value: true }));
       window.location.href = getHost() + Const.URLS.GOOGLE_URL;
     },
     toYahoo: () => {
+      dispatch(UserActions.updateState({ name: "loading", value: true }));
       window.location.href = getHost() + Const.URLS.YAHOO_URL;
     }
   };

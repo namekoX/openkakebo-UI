@@ -2,7 +2,6 @@ import { Action } from 'typescript-fsa';
 import { connect } from 'react-redux';
 import store, { AppState } from '../store';
 import { SummaryActions, getSammary } from '../actions/SummaryActions';
-import { SummaryForm } from '../components/SummaryForm';
 import Const from '../common/const';
 import { push } from 'connected-react-router';
 import { PublicForm } from '../components/PublicForm';

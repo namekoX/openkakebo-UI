@@ -11,6 +11,7 @@ import { SpinnerModal } from '../common/SpinnerModal';
 import { Br } from '../common/Br';
 import { InsertModal } from '../common/InsertModal';
 import { UpdateModal } from '../common/UpdateModal';
+import { Msg } from '../common/Msg';
 
 interface OwnProps {
   location: Location;
@@ -102,7 +103,7 @@ function renderTable(categories: Category[],
 
 export const CategoryForm: React.FC<CategoryProps> = (props: CategoryProps) => {
   useEffect(() => {
-    const kbn = props.location.pathname == Const.SITE_ROOT + '/category/shunyu' ? Const.CATEGORY_KBN.SHUNYU : Const.CATEGORY_KBN.SISHUTU;
+    const kbn = props.location.pathname == Const.SITE_ROOT + '/menu/category/shunyu' ? Const.CATEGORY_KBN.SHUNYU : Const.CATEGORY_KBN.SISHUTU;
     props.onCategoryGet(kbn, Cookies.get(Const.KEY_TOKEN) || '');
     if (props.location !== undefined) {
       document.title = Const.TITELS.CATEGORY;
@@ -139,10 +140,13 @@ export const CategoryForm: React.FC<CategoryProps> = (props: CategoryProps) => {
         }}
       />
       <Row >
-        <Col sm={3}>
+        <Col sm={12}>
           <h2>{props.categoryKbn == Const.CATEGORY_KBN.SISHUTU ? "支出" : "収入"}カテゴリ一覧</h2>
         </Col>
-        <Col sm={9}>
+      </Row>
+      <Row>
+        <Col sm={12}>
+          <Br count={1} />
           <Form inline>
             <Button
               variant="primary"
@@ -152,49 +156,23 @@ export const CategoryForm: React.FC<CategoryProps> = (props: CategoryProps) => {
             >
               保存
             </Button>
-          </Form>
-        </Col>
-      </Row>
-      <Row>
-        <Col sm={12}>
-          <Br count={1} />
-          <Button
-            variant="secondary"
-            onClick={(e: any) => {
-              props.onCategoryInsert(0, 'カテゴリ');
-            }}
-          >
-            カテゴリ追加
+            <Button
+              variant="secondary"
+              onClick={(e: any) => {
+                props.onCategoryInsert(0, 'カテゴリ');
+              }}
+            >
+              カテゴリ追加
           </Button>
+          </Form>
           <Br count={1} />
         </Col>
       </Row>
-      {props.valid &&
-        <div>
-          <Row>
-            <Col sm={12}>
-              <Alert
-                variant={"danger"}
-              >
-                {props.msg}
-              </Alert>
-            </Col>
-          </Row>
-        </div>
-      }
-      {props.info &&
-        <div>
-          <Row>
-            <Col sm={12}>
-              <Alert
-                variant={"success"}
-              >
-                {props.msg}
-              </Alert>
-            </Col>
-          </Row>
-        </div>
-      }
+      <Msg
+        info={props.info}
+        valid={props.valid}
+        msg={props.msg}
+      />
       <Row>
         <Col sm={12}>
           <Table bordered hover responsive size="sm" className="Fixed" style={{ maxWidth: '600px', border: "0px" }}>
@@ -230,12 +208,12 @@ export const CategoryForm: React.FC<CategoryProps> = (props: CategoryProps) => {
       <Row>
         <Col sm={12}>
           <Button
-              variant="primary"
-              onClick={(e: any) => props.onCategorySave(props.categoryKbn
-                , Cookies.get(Const.KEY_TOKEN) || ''
-                , props.categoryKbn == Const.CATEGORY_KBN.SISHUTU ? props.shishutuCategory || null : props.shunyuCategory || null)}
-            >
-              保存
+            variant="primary"
+            onClick={(e: any) => props.onCategorySave(props.categoryKbn
+              , Cookies.get(Const.KEY_TOKEN) || ''
+              , props.categoryKbn == Const.CATEGORY_KBN.SISHUTU ? props.shishutuCategory || null : props.shunyuCategory || null)}
+          >
+            保存
           </Button>
         </Col>
       </Row>

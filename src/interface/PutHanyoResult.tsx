@@ -3,5 +3,6 @@ interface PutHanyoResult {
   validMsg: string,
   statusCd: number,
   info: boolean,
+  hanyo?:any,
 }
 export default PutHanyoResult;

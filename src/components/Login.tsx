@@ -9,6 +9,7 @@ import btn_google from '../image/btn_google_signin_dark_pressed_web@2x.png';
 import btn_yahoo from '../image/btn_yahoo.png';
 import { SpinnerModal } from '../common/SpinnerModal';
 import Cookies from 'js-cookie';
+import { Msg } from '../common/Msg';
 
 interface OwnProps {
   location: Location;
@@ -23,10 +24,10 @@ export const Login: React.FC<UserProps> = (props: UserProps) => {
   React.useEffect(() => {
     if (props.location !== undefined) {
       document.title = Const.TITELS.LOGIN;
-      if (props.location.pathname === Const.SITE_ROOT + '/changepassword' || props.location.pathname === Const.SITE_ROOT + '/changeid') {
+      if (props.location.pathname === Const.SITE_ROOT + '/menu/changepassword' || props.location.pathname === Const.SITE_ROOT + '/menu/changeid') {
         props.updateState(true, "isChange");
         props.updateState('更新', "btnName");
-        if (props.location.pathname === Const.SITE_ROOT + '/changepassword') {
+        if (props.location.pathname === Const.SITE_ROOT + '/menu/changepassword') {
           props.updateState('パスワード', "changeMode");
         } else {
           props.updateState('ID', "changeMode");
@@ -35,7 +36,7 @@ export const Login: React.FC<UserProps> = (props: UserProps) => {
         props.updateState(false, "isChange");
       }
     }
-  }, [])
+  }, [props.location.pathname])
   return (
     <div className={"LoginCard"}>
       <SpinnerModal
@@ -79,7 +80,7 @@ export const Login: React.FC<UserProps> = (props: UserProps) => {
                         if (props.btnName == "ログイン") {
                           props.onLogin(body);
                         } else if (props.btnName == "更新") {
-                          props.onUpdate(Cookies.get(Const.KEY_TOKEN) || '', props.chkpassword, props.password, props.email,props.changeMode);
+                          props.onUpdate(Cookies.get(Const.KEY_TOKEN) || '', props.chkpassword, props.password, props.email, props.changeMode);
                         } else if (props.btnName == "戻る") {
                           props.toTop();
                         } else {
@@ -106,7 +107,7 @@ export const Login: React.FC<UserProps> = (props: UserProps) => {
                         if (props.btnName == "ログイン") {
                           props.onLogin(body);
                         } else if (props.btnName == "更新") {
-                          props.onUpdate(Cookies.get(Const.KEY_TOKEN) || '', props.chkpassword, props.password, props.email,props.changeMode);
+                          props.onUpdate(Cookies.get(Const.KEY_TOKEN) || '', props.chkpassword, props.password, props.email, props.changeMode);
                         } else if (props.btnName == "戻る") {
                           props.toTop();
                         } else {
@@ -147,20 +148,11 @@ export const Login: React.FC<UserProps> = (props: UserProps) => {
                   </ListGroupItem>
                 }
               </ListGroup>
-              {(props.valid || props.info) &&
-                <div>
-                  <Row className="width90">
-                    <Col sm={1}></Col>
-                    <Col sm={11}>
-                      <Alert
-                        variant={props.valid ? "danger" : "success"}
-                      >
-                        {props.msg}
-                      </Alert>
-                    </Col>
-                  </Row>
-                </div>
-              }
+              <Msg
+                info={props.info}
+                valid={props.valid}
+                msg={props.msg}
+              />
               <Card.Body>
                 <Button
                   variant="primary"

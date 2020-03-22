@@ -10,8 +10,8 @@ interface Props {
 export const Msg: React.FC<Props> = (props: Props) => {
 
   return (
-    <div>
-      {props.valid &&
+    <div className="msg">
+      {props.valid && (props.msg != "") &&
         <div>
           <Row>
             <Col sm={12}>
@@ -24,7 +24,7 @@ export const Msg: React.FC<Props> = (props: Props) => {
           </Row>
         </div>
       }
-      {props.info &&
+      {props.info && (props.msg != "") &&
         <div>
           <Row>
             <Col sm={12}>

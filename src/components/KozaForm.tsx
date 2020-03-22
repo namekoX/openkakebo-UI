@@ -12,6 +12,7 @@ import Koza from '../interface/Koza';
 import { formatToPrice } from '../common/utils';
 import { KozaModal } from './KozaModal';
 import { getBsProps } from 'react-bootstrap/lib/utils/bootstrapUtils';
+import { Msg } from '../common/Msg';
 
 interface OwnProps {
   location: Location;
@@ -122,32 +123,11 @@ export const KozaForm: React.FC<KozaProps> = (props: KozaProps) => {
           <Br count={1} />
         </Col>
       </Row>
-      {props.valid &&
-        <div>
-          <Row>
-            <Col sm={12}>
-              <Alert
-                variant={"danger"}
-              >
-                {props.msg}
-              </Alert>
-            </Col>
-          </Row>
-        </div>
-      }
-      {props.info &&
-        <div>
-          <Row>
-            <Col sm={12}>
-              <Alert
-                variant={"success"}
-              >
-                {props.msg}
-              </Alert>
-            </Col>
-          </Row>
-        </div>
-      }
+      <Msg
+        info={props.info}
+        valid={props.valid}
+        msg={props.msg}
+      />
       <Row>
         <Col sm={12}>
           <Table bordered hover responsive size="sm" className="Fixed" style={{ maxWidth: '600px', border: "0px" }}>

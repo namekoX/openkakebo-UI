@@ -16,7 +16,7 @@ function mapDispatchToProps(dispatch: any) {
       Cookies.set(Const.KEY_TOKEN, token);
       dispatch(AppActions.onClear({}));
       dispatch(AppActions.updateState({ name: "isSocialLogin", value: true }));
-      dispatch(push(Const.SITE_ROOT + "/"));
+      dispatch(push(Const.SITE_ROOT + "/menu/summary"));
     },
   };
 }

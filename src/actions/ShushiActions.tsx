@@ -10,6 +10,9 @@ import GetKozaResult from '../interface/GetKozaResult';
 import Koza from '../interface/Koza';
 import GetRirekiResult from '../interface/GetRirekiResult';
 import GetRirekiRequest from '../interface/GetRirekiRequest';
+import Rireki from '../interface/Rireki';
+import Cookies from 'js-cookie';
+import Const from '../common/const';
 
 const actionCreator = actionCreatorFactory();
 
@@ -20,7 +23,6 @@ const onKozaGet = actionCreator<GetKozaResult>('ACTIONS_SHUSHI_KOZA_GET');
 const onKozaSave = actionCreator<PutHanyoResult>('ACTIONS_SHUSHI_KOZA_SAVE');
 
 const onRirekiGet = actionCreator<GetRirekiResult>('ACTIONS_SHUSHI_RIREKI_GET');
-const onRirekiSave = actionCreator<PutHanyoResult>('ACTIONS_SHUSHI_RIREKI_SAVE');
 const onRirekiDelete = actionCreator<PutHanyoResult>('ACTIONS_SHUSHI_RIREKI_DELETE');
 
 export const getCategory = (url: string, kbn: string, token: string) => {
@@ -118,20 +120,20 @@ export const saveKoza = (url: string, token: string, kozas: Koza[] | null) => {
 
     let errorflg = false;
     kozas!.forEach(koza => {
-        if(koza.koza_name === "") {
-          const result: PutHanyoResult = {
-            valid: true,
-            validMsg: '口座名は必須です',
-            statusCd: 400,
-            info: false,
-          };
-          dispatch(onKozaSave(result));
-          errorflg = true
-        }
+      if (koza.koza_name === "") {
+        const result: PutHanyoResult = {
+          valid: true,
+          validMsg: '口座名は必須です',
+          statusCd: 400,
+          info: false,
+        };
+        dispatch(onKozaSave(result));
+        errorflg = true
       }
+    }
     )
 
-    if(errorflg)return;
+    if (errorflg) return;
 
     try {
       const response = await axios({
@@ -161,7 +163,7 @@ export const saveKoza = (url: string, token: string, kozas: Koza[] | null) => {
   };
 };
 
-export const getRireki = (url: string, token: string, month: number | null, offset: number, limit:number) => {
+export const getRireki = (url: string, token: string, month: number | null, offset: number, limit: number) => {
   const prams: GetRirekiRequest = {
     month: month,
     offset: offset,
@@ -184,7 +186,7 @@ export const getRireki = (url: string, token: string, month: number | null, offs
       };
       dispatch(onRirekiGet(result));
     } catch (error) {
-      const ret ={
+      const ret = {
         rireki: [],
         pagerTotalCount: 0,
       }
@@ -195,6 +197,42 @@ export const getRireki = (url: string, token: string, month: number | null, offs
         statusCd: error.response !== undefined ? error.response.status : 500,
       };
       dispatch(onRirekiGet(result));
+    }
+  };
+};
+
+export const deleteRireki = (url: string, rireki: Rireki, index: number) => {
+
+  return async (dispatch: Dispatch<Action>, getState: () => AppState) => {
+    try {
+      const response = await axios({
+        method: 'DELETE',
+        url: createURL(url),
+        headers: {
+          'Authorization': getTokenPram(Cookies.get(Const.KEY_TOKEN) || ""),
+        },
+        data: rireki,
+      });
+      const result: PutHanyoResult = {
+        valid: false,
+        validMsg: '削除しました。',
+        statusCd: response.status,
+        info: true,
+        hanyo: index,
+      };
+      dispatch(onRirekiDelete(result));
+    } catch (error) {
+      const ret = {
+        rireki: [],
+        pagerTotalCount: 0,
+      }
+      const result: PutHanyoResult = {
+        valid: true,
+        validMsg: '削除で想定外のエラーが発生しました',
+        statusCd: error.response !== undefined ? error.response.status : 500,
+        info: false,
+      };
+      dispatch(onRirekiDelete(result));
     }
   };
 };
@@ -212,4 +250,5 @@ export const ShushiActions = {
   onKozaDelete: actionCreator<{ index: number }>('ACTIONS_SHUSHI_KOZA_DELETE'),
   updateKoza: actionCreator<{ name: string, value: any, index: number, id: number }>('ACTIONS_KOZA_UPDATE_STATE'),
   onRirekiGet,
+  onRirekiDelete,
 };

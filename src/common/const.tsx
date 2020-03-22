@@ -7,7 +7,7 @@ export default class Const {
   static SITE_ROOT = "/app4";
 
   static TEST_HOST = "http://openkakebotest.com";
-  static PRODUCT_HOST = "https://slavesystem.info";
+  static PRODUCT_HOST = "https://slavesystem.info/phproot/openkakebo/public";
 
   static URLS = {
     LOGIN_URL: "/api/login",
@@ -23,6 +23,7 @@ export default class Const {
     SHUSHI_URL:"/api/shushi",
     SUMMARY_URL: "/api/summary",
     PUBLIC_URL: "/api/public",
+    PUBLIC_CONF_URL: "/api/kokaiconfig",
   }
 
   static TITELS = {
@@ -33,6 +34,8 @@ export default class Const {
     CATEGORY: "Open家計簿 - カテゴリー",
     RIREKI: "Open家計簿 - 履歴",
     SUMMARY: "Open家計簿 - サマリー",
+    PUBLIC_CONF: "Open家計簿 - 公開設定",
+    HOW_TO:"Open家計簿 - 使い方"
   }
 
   static CATEGORY_KBN = {

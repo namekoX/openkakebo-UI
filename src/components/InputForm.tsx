@@ -12,6 +12,7 @@ import SubCategory from '../interface/SubCategory';
 import Koza from '../interface/Koza';
 import { getUserId, formatDate } from '../common/utils';
 import Shushi from '../interface/Shushi';
+import { Msg } from '../common/Msg';
 
 interface OwnProps {
   location: Location;
@@ -58,10 +59,10 @@ export const InputForm: React.FC<InputProps> = (props: InputProps) => {
     if (props.location !== undefined) {
       let kbn;
       switch (props.location.pathname) {
-        case Const.SITE_ROOT + '/input/shunyu':
+        case Const.SITE_ROOT + '/menu/input/shunyu':
           kbn = Const.INPUT_KBN.SHUNYU;
           break;
-        case Const.SITE_ROOT + '/input/shishutu':
+        case Const.SITE_ROOT + '/menu/input/shishutu':
           kbn = Const.INPUT_KBN.SISHUTU;
           break;
         default:
@@ -209,32 +210,11 @@ export const InputForm: React.FC<InputProps> = (props: InputProps) => {
           </InputGroup>
         </Col>
       </Row>
-      {props.valid &&
-        <div>
-          <Row>
-            <Col sm={12}>
-              <Alert
-                variant={"danger"}
-              >
-                {props.msg}
-              </Alert>
-            </Col>
-          </Row>
-        </div>
-      }
-      {props.info &&
-        <div>
-          <Row>
-            <Col sm={12}>
-              <Alert
-                variant={"success"}
-              >
-                {props.msg}
-              </Alert>
-            </Col>
-          </Row>
-        </div>
-      }
+      <Msg
+        info={props.info}
+        valid={props.valid}
+        msg={props.msg}
+      />
       <Row>
         <Col sm={12}>
           <Button

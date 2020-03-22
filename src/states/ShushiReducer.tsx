@@ -273,4 +273,19 @@ export const ShushiReducer = reducerWithInitialState(initialState)
       statsuCd: payload.statusCd,
     });
   })
+  .case(ShushiActions.onRirekiDelete, (state, payload) => {
+    const rireki = state.rireki !== undefined ? state.rireki : [];
+    if (payload.hanyo !== null && payload.info) {
+      rireki.splice(payload.hanyo, 1);
+    }
+
+    return Object.assign({}, state, {
+      info: payload.info,
+      valid: payload.valid,
+      msg: payload.validMsg,
+      statsuCd: payload.statusCd,
+      updater: ++state.updater,
+      rireki: rireki,
+    })
+  })
   ;

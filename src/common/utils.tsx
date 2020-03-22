@@ -10,6 +10,14 @@ export function getChkValue(chkBool: boolean) {
     return (chkBool ? 1 : 0);
 }
 
+export function getChkBoolStr(chkValue: string) {
+    return (chkValue == "1");
+}
+
+export function getChkValueStr(chkBool: boolean) {
+    return (chkBool ? "1" : "0");
+}
+
 export function createURL(url: string, prams?: { [key: string]: any; }) {
     const host: string = getHost();
     let opt: string = "";
