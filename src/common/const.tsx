@@ -4,7 +4,7 @@ export default class Const {
 
   static LIST_PAGER_PERPAGE = 30;
 
-  static SITE_ROOT = "/app4";
+  static SITE_ROOT = "";
 
   static TEST_HOST = "http://openkakebotest.com";
   static PRODUCT_HOST = "https://slavesystem.info/phproot/openkakebo/public";

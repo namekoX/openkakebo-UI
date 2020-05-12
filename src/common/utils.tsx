@@ -42,7 +42,7 @@ export function getHost() {
 
 export function getGAID() {
     if (process.env.NODE_ENV === "production") {
-        return "UA-152682775-2";
+        return "UA-166130091-1";
     } else {
         return "";
     }
